@@ -1,0 +1,338 @@
+/* 基础布局样式 */
+[v-cloak] {
+    display: none;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f0f2f5;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+#app {
+    height: 100%;
+}
+
+.el-container {
+    height: 100%;
+}
+
+.el-aside {
+    background-color: #545c64;
+    box-shadow: 2px 0 6px rgba(0,21,41,.35);
+}
+
+.el-header {
+    background-color: #fff;
+    color: #333;
+    line-height: 60px;
+    border-bottom: 1px solid #dcdfe6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+}
+
+.el-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1f2f3d;
+}
+
+.header-operations {
+    display: flex;
+    align-items: center;
+}
+
+.el-main {
+    background-color: #f0f2f5;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* 菜单样式 */
+.el-menu {
+    border-right: none;
+}
+
+.el-menu-item.is-active {
+    background-color: #1f2d3d !important;
+}
+
+.el-menu-item:hover {
+    background-color: #1f2d3d !important;
+}
+
+/* 数据展示样式 */
+.amount-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.trend-text {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #909399;
+}
+
+.green-text {
+    color: #67C23A;
+}
+
+.red-text {
+    color: #F56C6C;
+}
+
+.warning-text {
+    color: #E6A23C;
+}
+
+.warning-stock {
+    color: #E6A23C;
+}
+
+.danger-stock {
+    color: #F56C6C;
+}
+
+/* 表格样式优化 */
+.el-table {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
+
+.el-table th {
+    background-color: #f5f7fa;
+    font-weight: bold;
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+    background-color: #fafafa;
+}
+
+/* 卡片样式优化 */
+.el-card {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    transition: all .3s;
+}
+
+.el-card:hover {
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,.2);
+}
+
+.el-card:last-child {
+    margin-bottom: 0;
+}
+
+.el-card__header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #ebeef5;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: #1f2f3d;
+}
+
+/* 表单样式 */
+.el-form-item__label {
+    font-weight: bold;
+}
+
+/* 对话框样式 */
+.el-dialog {
+    border-radius: 8px;
+}
+
+.el-dialog__header {
+    background: #f5f7fa;
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.el-dialog__body {
+    padding: 20px;
+}
+
+.el-dialog__footer {
+    border-top: 1px solid #ebeef5;
+    padding: 15px 20px;
+}
+
+/* 按钮组样式 */
+.el-button-group {
+    margin-right: 10px;
+}
+
+.el-button {
+    transition: all .3s;
+}
+
+.el-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+/* 图表容器样式 */
+.echarts-container {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
+
+/* 数据管理工具栏样式 */
+.data-toolbar {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+}
+
+/* 统计卡片样式 */
+.statistics-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.statistics-card .el-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.statistics-card .amount-text {
+    text-align: center;
+    font-size: 28px;
+    margin: 15px 0;
+}
+
+.statistics-card .trend-text {
+    text-align: center;
+}
+
+/* 响应式布局调整 */
+@media screen and (max-width: 768px) {
+    .el-aside {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    .el-aside.hidden {
+        transform: translateX(-100%);
+    }
+
+    .el-main {
+        padding: 10px;
+        margin-left: 0;
+    }
+
+    .el-header {
+        padding: 0 10px;
+    }
+
+    .el-header h2 {
+        font-size: 16px;
+        flex: 1;
+        margin-left: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .header-operations {
+        display: none;
+    }
+
+    .toggle-menu {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* 表格适配 */
+    .el-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .el-table__body-wrapper {
+        overflow-x: auto;
+    }
+
+    /* 表单适配 */
+    .el-form-item {
+        margin-bottom: 10px;
+    }
+
+    .el-dialog {
+        width: 90% !important;
+        margin: 5vh auto !important;
+    }
+}
+
+/* 打印样式优化 */
+@media print {
+    .el-aside,
+    .el-header,
+    .data-toolbar {
+        display: none;
+    }
+
+    .el-main {
+        padding: 0;
+    }
+
+    .el-card {
+        box-shadow: none;
+        border: none;
+    }
+}
+
+/* 添加图表容器样式 */
+.finance-statistics .echarts-container {
+    width: 100%;
+    height: 400px;
+    min-height: 300px;
+}
+
+.finance-statistics .pie-chart-container {
+    width: 100%;
+    height: 300px;
+    min-height: 250px;
+}
+
+/* 利润统计样式 */
+.profit-statistics .amount-text {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.profit-statistics .trend-text {
+    font-size: 14px;
+    color: #909399;
+}
+
+.profit-statistics .green-text {
+    color: #67C23A;
+}
+
+.profit-statistics .red-text {
+    color: #F56C6C;
+} 
