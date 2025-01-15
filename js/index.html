@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>精诚科技账簿-刘老板专用</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.13/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <el-container>
+            <!-- 侧边栏 -->
+            <el-aside :width="isMobile ? '60px' : '200px'" v-show="!isMobile || showMenu">
+                <el-menu 
+                    :default-active="activeIndex"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    :collapse="isMobile"
+                    @select="handleSelect">
+                    
+                    <!-- 仪表盘 -->
+                    <el-menu-item index="0">
+                        <i class="el-icon-s-home"></i>
+                        <span>仪表盘</span>
+                    </el-menu-item>
+                    
+                    <!-- 基础数据管理 -->
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-s-tools"></i>
+                            <span>基础数据管理</span>
+                        </template>
+                        <el-menu-item index="1-1">商品管理</el-menu-item>
+                        <el-menu-item index="1-2">供应商管理</el-menu-item>
+                        <el-menu-item index="1-3">客户管理</el-menu-item>
+                    </el-submenu>
+
+                    <!-- 采购管理 -->
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-shopping-cart-full"></i>
+                            <span>采购管理</span>
+                        </template>
+                        <el-menu-item index="2-1">采购订单</el-menu-item>
+                        <el-menu-item index="2-2">采购退货</el-menu-item>
+                        <el-menu-item index="2-3">供应商对账</el-menu-item>
+                    </el-submenu>
+
+                    <!-- 销售管理 -->
+                    <el-submenu index="3">
+                        <template slot="title">
+                            <i class="el-icon-sell"></i>
+                            <span>销售管理</span>
+                        </template>
+                        <el-menu-item index="3-1">销售开单</el-menu-item>
+                        <el-menu-item index="3-2">销售退货</el-menu-item>
+                        <el-menu-item index="3-3">客户对账</el-menu-item>
+                    </el-submenu>
+
+                    <!-- 库存管理 -->
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-box"></i>
+                            <span>库存管理</span>
+                        </template>
+                        <el-menu-item index="4-1">库存查询</el-menu-item>
+                        <el-menu-item index="4-2">库存盘点</el-menu-item>
+                        <el-menu-item index="4-3">库存预警</el-menu-item>
+                        <el-menu-item index="4-4">库存变动记录</el-menu-item>
+                    </el-submenu>
+
+                    <!-- 财务管理 -->
+                    <el-submenu index="5">
+                        <template slot="title">
+                            <i class="el-icon-money"></i>
+                            <span>财务管理</span>
+                        </template>
+                        <el-menu-item index="5-1">现金流水</el-menu-item>
+                        <el-menu-item index="5-2">利润统计</el-menu-item>
+                        <el-menu-item index="5-3">应收管理</el-menu-item>
+                        <el-menu-item index="5-4">应付管理</el-menu-item>
+                        <el-menu-item index="5-5">财务报表</el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            
+            <!-- 主要内容区 -->
+            <el-container>
+                <el-header height="60px">
+                    <i class="el-icon-menu toggle-menu" @click="toggleMenu" v-if="isMobile"></i>
+                    <h2>精诚科技账簿-刘老板专用</h2>
+                    <div class="header-operations">
+                                <el-button-group>
+                            <el-button size="small" @click="saveToLocalStorage">保存数据</el-button>
+                            <el-button size="small" @click="exportData">导出数据</el-button>
+                            <el-button size="small" @click="triggerImport">导入数据</el-button>
+                                </el-button-group>
+                        <input type="file" ref="fileInput" style="display: none" accept=".json" @change="importData">
+                            </div>
+                </el-header>
+                
+                <el-main>
+                    <!-- 组件显示区域 -->
+                    <component 
+                        :is="currentComponent"
+                        :system-data="systemData"
+                        :system-config="systemConfig"
+                        @data-change="handleDataChange">
+                    </component>
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
+
+    <!-- 引入基础库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.13/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    
+    <!-- 引入移动端调试工具 -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    
+    <!-- 引入核心服务 -->
+    <script src="js/db.js"></script>
+    <script src="js/store.js"></script>
+    
+    <!-- 引入组件 -->
+    <script src="components/dashboard.js"></script>
+    <script src="js/modules/product.js"></script>
+    <script src="js/modules/supplier.js"></script>
+    <script src="js/modules/customer.js"></script>
+    <script src="js/modules/purchase.js"></script>
+    <script src="js/modules/sales.js"></script>
+    
+    <!-- 库存管理模块 -->
+    <script src="js/modules/inventory/query.js"></script>
+    <script src="js/modules/inventory/check.js"></script>
+    <script src="js/modules/inventory/warning.js"></script>
+    <script src="js/modules/inventory/history.js"></script>
+    
+    <!-- 财务管理模块 -->
+    <script src="js/modules/finance/cash-flow.js"></script>
+    <script src="js/modules/finance/statistics.js"></script>
+    <script src="js/modules/finance/receivables.js"></script>
+    <script src="js/modules/finance/payables.js"></script>
+    <script src="js/modules/finance/report.js"></script>
+    
+    <!-- 引入主程序 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
